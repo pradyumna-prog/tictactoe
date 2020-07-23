@@ -28,7 +28,7 @@ function setupGame(){
     turn = false;
     dark = false;
     pauseClick();
-    updateBoard();
+    updategameStatus();
     document.getElementById("gameResult").innerHTML = "";
     document.querySelector(".gameTypeSelect").style = "";
 }
@@ -72,47 +72,148 @@ function cellClickHandler(id){
     gameStatus[x][y] = turn ? 'O': 'X'
     if(player == "human")
         turn = !turn
-    updateBoard();
+    updategameStatus();
     document.getElementById(id).style.pointerEvents = 'none';
     document.getElementById('gameResult').innerHTML = (turn ? 'O': 'X')+'\'s Turn';
     result = checkWinner();
-    if(result == -1){
+    if(result == 0 && !isMovesLeft()){
         showResult("Tie");
         player = '';
     }
-    else if(result != 0){
-        showResult(result);
+    else if(result == 10 || result == -10){
+        console.log(result)
+        winner = (result == 10) ? 'O' : 'X';
+        showResult(winner);
         player = '';
     }
     if(player=="ai"){
         setTimeout( () => {computerSelectMove();}, 500);
     }
-        
 }
 
 function computerSelectMove(){
-    availableSpots = getAvailableSpots();
-    const [x,y] = availableSpots[Math.floor( Math.random() * availableSpots.length) ]
-    gameStatus[x][y] = 'O'
-    updateBoard();
+    const [x,y] = findBestMove()
+    gameStatus[x][y] = 'O';
+    updategameStatus();
     result = checkWinner();
-    if(result == -1){
+    if(result == 0 && !isMovesLeft()){
         showResult("Tie");
+        player = '';
     }
-    else if(result != 0){
-        showResult(result);
+    else if(result == 10 || result == -10){
+        winner = (result == 10) ? 'O' : 'X';
+        showResult(winner);
+        player = '';
     }
 }
 
-function getAvailableSpots(){
-    let availableSpots = []
+function isMovesLeft(){
     for(let x=0; x<3; x++){
         for(let y=0; y<3; y++){
             if(gameStatus[x][y] == '')
-                availableSpots.push([x,y])
+                return true;
         }
     }
-    return availableSpots;
+    return false;
+}
+
+function minimax(gameStatus, depth, isMax){
+    score = checkWinner();
+    if(score == 10) return score;
+    if(score == -10) return score;
+    if(isMovesLeft() == false)  return 0;
+
+    // if this is maximizer's move
+    if(isMax){
+        best = Number.NEGATIVE_INFINITY;
+        for (let i = 0; i < 3; i++) 
+        { 
+            for (let j = 0; j < 3; j++) 
+            { 
+                // Check if cell is empty 
+                if (gameStatus[i][j] == '') 
+                { 
+                    // Make the move 
+                    gameStatus[i][j] = 'O'; 
+  
+                    // Call minimax recursively and choose 
+                    // the maximum value 
+                    best = Math.max(best, minimax(gameStatus,  
+                                    depth + 1, !isMax)); 
+  
+                    // Undo the move 
+                    gameStatus[i][j] = ''; 
+                } 
+            } 
+        }
+        return best;
+    }
+    // if this is minimizer's move
+    else{
+        let best = Number.POSITIVE_INFINITY; 
+  
+        // Traverse all cells 
+        for (let i = 0; i < 3; i++) 
+        { 
+            for (let j = 0; j < 3; j++) 
+            { 
+                // Check if cell is empty 
+                if (gameStatus[i][j] == '') 
+                { 
+                    // Make the move 
+                    gameStatus[i][j] = 'X'; 
+  
+                    // Call minimax recursively and choose 
+                    // the minimum value 
+                    best = Math.min(best, minimax(gameStatus,  
+                                    depth + 1, !isMax)); 
+  
+                    // Undo the move 
+                    gameStatus[i][j] = ''; 
+                } 
+            } 
+        } 
+        return best; 
+    }
+}
+function findBestMove() 
+{ 
+    let bestVal = -1000; 
+    let x = -1, y = -1;
+    // Traverse all cells, evaluate minimax function  
+    // for all empty cells. And return the cell  
+    // with optimal value. 
+    for (let i = 0; i < 3; i++) 
+    { 
+        for (let j = 0; j < 3; j++) 
+        { 
+            // Check if cell is empty 
+            if (gameStatus[i][j] == '') 
+            { 
+                // Make the move 
+                gameStatus[i][j] = 'O'; 
+  
+                // compute evaluation function for this 
+                // move. 
+                let moveVal = minimax(gameStatus, 0, false); 
+  
+                // Undo the move 
+                gameStatus[i][j] = ''; 
+  
+                // If the value of the current move is 
+                // more than the best value, then update 
+                // best/ 
+                if (moveVal > bestVal) 
+                { 
+                    x = i; 
+                    y = j; 
+                    bestVal = moveVal; 
+                } 
+            } 
+        } 
+    } 
+    
+    return [x,y]; 
 }
 
 function startNewGame(){
@@ -120,12 +221,12 @@ function startNewGame(){
         ['','','',],
         ['','',''] ]
     turn = false
-    updateBoard();
+    updategameStatus();
     resumeClick();
     document.getElementById("gameResult").innerHTML = "";
 }
 
-function updateBoard(){
+function updategameStatus(){
     let k = 0;
     for(let x=0; x<3; x++){
         for(let y=0; y<3; y++){
@@ -138,32 +239,29 @@ function checkWinner(){
     //horizontal check
     for(let x=0; x<3; x++){
         if(gameStatus[x][0] == gameStatus[x][1] && gameStatus[x][1] == gameStatus[x][2] && gameStatus[x][0] != ''){
-            console.log('[Row]'+x);
-            return gameStatus[x][0];
+            if(gameStatus[x][0] == 'O') return +10;
+            else if(gameStatus[x][0] == 'X') return -10;
         }
     }
     //vertical check
     for(let y=0; y<3; y++){
         if(gameStatus[0][y] == gameStatus[1][y] && gameStatus[1][y] == gameStatus[2][y] && gameStatus[0][y] != ''){
-            console.log('[Col]'+y)
-            return gameStatus[0][y];
+            if(gameStatus[0][y] == 'O') return +10;
+            else if(gameStatus[0][y] == 'X') return -10;
         }
     }
     //diagonal check
-    if(gameStatus[0][0] == gameStatus[1][1] && gameStatus[1][1] == gameStatus[2][2] && gameStatus[1][1] != '')
-        return gameStatus[1][1];
-    if(gameStatus[0][2] == gameStatus[1][1] && gameStatus[1][1] == gameStatus[2][0] && gameStatus[1][1] != '')
-        return gameStatus[1][1];
+    if(gameStatus[0][0] == gameStatus[1][1] && gameStatus[1][1] == gameStatus[2][2] && gameStatus[1][1] != ''){
+        if(gameStatus[1][1] == 'O') return +10;
+        else if(gameStatus[1][1] == 'X') return -10;
+    }
+    if(gameStatus[0][2] == gameStatus[1][1] && gameStatus[1][1] == gameStatus[2][0] && gameStatus[1][1] != ''){
+        if(gameStatus[1][1] == 'O') return +10;
+        else if(gameStatus[1][1] == 'X') return -10;
+    }
 
-    //if game has not finished
-    for(let x=0; x<3; x++){
-        for(let y=0; y<3; y++){
-            if(gameStatus[x][y] == '')
-                return 0;
-        }
-    } 
     //game is tie
-    return -1;
+    return 0;
 }
 
 function showResult(str){
