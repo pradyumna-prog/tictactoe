@@ -32,7 +32,21 @@ body{
     text-align: center;
     font-size: large;
 }
-
+.gameTypeSelect{
+	margin:10px; 
+	text-align:center;
+}
+.playerSelect{
+	font-size: large;
+	border: 0px solid black;
+	cursor: pointer;
+	background-color: #f4f6ff;
+}
+.playerSelect:hover{
+	border: 1px solid blue;
+	box-shadow: 0 0 0 1px #333333;
+}
+/* toggle btn css*/
 input[type=checkbox]{
 	height: 0;
 	width: 0;
