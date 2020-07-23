@@ -137,13 +137,17 @@ function updateBoard(){
 function checkWinner(){
     //horizontal check
     for(let x=0; x<3; x++){
-        if(gameStatus[x][0] == gameStatus[x][1] && gameStatus[x][1] == gameStatus[x][2] && gameStatus[x][0] != '')
+        if(gameStatus[x][0] == gameStatus[x][1] && gameStatus[x][1] == gameStatus[x][2] && gameStatus[x][0] != ''){
+            console.log('[Row]'+x);
             return gameStatus[x][0];
+        }
     }
     //vertical check
     for(let y=0; y<3; y++){
-        if(gameStatus[0][y] == gameStatus[1][y] && gameStatus[1][y] == gameStatus[2][y] && gameStatus[0][y] != '')
-            return gameStatus[y][0];
+        if(gameStatus[0][y] == gameStatus[1][y] && gameStatus[1][y] == gameStatus[2][y] && gameStatus[0][y] != ''){
+            console.log('[Col]'+y)
+            return gameStatus[0][y];
+        }
     }
     //diagonal check
     if(gameStatus[0][0] == gameStatus[1][1] && gameStatus[1][1] == gameStatus[2][2] && gameStatus[1][1] != '')
