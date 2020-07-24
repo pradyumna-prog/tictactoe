@@ -16,6 +16,12 @@
     <label for="switch" id="labelSwitch">Toggle</label>
 
     <h1 style = "font-family: 'Courier New', Courier, monospace; text-align: center;">Tic Tac Toe</h1>
+
+    <div class="gameTypeSelect">
+        <button class="playerSelect" onclick="againstComputer();">👨 v/s 💻</button>
+        <button class="playerSelect" onclick="againstPlayer();">👨 v/s 👨</button>
+    </div>
+
     <div id = "board" class = "board">
         <div id="0" class="cell" onclick="cellClickHandler(this.id)"></div>
         <div id="1" class="cell" onclick="cellClickHandler(this.id);" ></div>
@@ -29,9 +35,6 @@
     </div>
     <div id="gameResult">
     </div>
-    <div class="gameTypeSelect">
-        <button class="playerSelect" onclick="againstComputer();">👨 vs 💻</button>
-        <button class="playerSelect" onclick="againstPlayer();">👨 vs 👨</button>
-    </div>
+    
 </body>
 </html>

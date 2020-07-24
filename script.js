@@ -101,7 +101,8 @@ function computerSelectMove(){
         player = '';
     }
     else if(result == 10 || result == -10){
-        winner = (result == 10) ? 'O' : 'X';
+        symbol = (result == 10) ? 'O' : 'X';
+        winner = symbol == 'O' ? "Computer" : "You";
         showResult(winner);
         player = '';
     }
