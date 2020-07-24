@@ -5,7 +5,9 @@ body{
     display: grid;
     grid-template-columns: repeat(3, auto);
     width: 306px;
-    margin: 50px auto;
+	margin: 50px auto;
+	transition: transform 1.7s;
+	transform-style: preserve-3d;
 }
 
 .cell{
@@ -48,9 +50,9 @@ body{
 }
 #footerContainer {
 	position: absolute;
-  	bottom: 0;
+  	bottom: auto;
 	left: 0px;
-  	height: 50px;
+  	height: 40px;
 	width: 100%;	
 }
 .alignLeft {

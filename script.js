@@ -11,48 +11,6 @@ function sleep(milliseconds) {
       }
     }
 }
-function pauseClick(){
-    let k = 0;
-    for(let x=0; x<3; x++){
-        for(let y=0; y<3; y++){
-            document.getElementById(k++).style.pointerEvents = 'none';
-        }
-    }
-}
-
-function resumeClick(){
-    let k = 0;
-    for(let x=0; x<3; x++){
-        for(let y=0; y<3; y++){
-            document.getElementById(k++).style.pointerEvents = 'auto';
-        }
-    }
-}
-
-function showIntro(){
-    pauseClick();
-    let intro = [ ['T','I','C',],
-    ['T','A','C',],
-    ['T','O','E'] ];
-    let k = 0;
-    for(let x=0; x<3; x++){
-        for(let y=0; y<3; y++){
-            document.getElementById(k++).innerHTML = intro[x][y];
-        }
-    }
-    setTimeout( () => {setupGame()}, 2000);
-}
-
-function setupGame(){
-    gameStatus = [ ['','','',],
-        ['','','',],
-        ['','',''] ];
-    turn = false;
-    dark = false;
-    updategameStatus();
-    document.getElementById("gameResult").innerHTML = "";
-    document.querySelector(".gameTypeSelect").style = "";
-}
 
 function switchTheme(){
     dark = !dark
@@ -80,13 +38,68 @@ function switchTheme(){
     }
 }
 
+function pauseClick(){
+    let k = 0;
+    for(let x=0; x<3; x++){
+        for(let y=0; y<3; y++){
+            document.getElementById(k++).style.pointerEvents = 'none';
+        }
+    }
+}
+
+function resumeClick(){
+    let k = 0;
+    for(let x=0; x<3; x++){
+        for(let y=0; y<3; y++){
+            document.getElementById(k++).style.pointerEvents = 'auto';
+        }
+    }
+}
+
+function showIntro(){
+    pauseClick();
+    let intro = [ 
+        ['T','I','C',],
+        ['T','A','C',],
+        ['T','O','E'] ];
+    let id = 0, speed = 300;
+    for(let x=0; x<3; x++){
+        for(let y=0; y<3; y++){
+            let char = intro[x][y];
+            let el = document.getElementById(id);
+            setTimeout(function(char) {
+                el.innerHTML = char;
+            }, speed * id, char);
+            id++;
+        }
+    }
+}
+
+function flip(){
+    let el = document.getElementById("board");
+    el.style.transform = 'rotateY(180deg)';
+}
+
+function setupGame(){
+    gameStatus = [ ['','','',],
+        ['','','',],
+        ['','',''] ];
+    turn = false;
+    dark = false;
+    updategameStatus();
+    document.getElementById("gameResult").innerHTML = "";
+    document.querySelector(".gameTypeSelect").style = "";
+}
+
 function againstComputer(){
+    flip();
     document.querySelector(".gameTypeSelect").style = "visibility: hidden;";
     player = "ai";
     startNewGame();
 }
 
 function againstPlayer(){
+    flip();
     document.querySelector(".gameTypeSelect").style = "visibility: hidden;";
     player = "human";
     startNewGame();
@@ -112,6 +125,7 @@ function cellClickHandler(id){
         player = '';
     }
     if(player=="ai"){
+        document.getElementById('gameResult').innerHTML ='O\'s Turn';
         setTimeout( () => {computerSelectMove();}, 500);
     }
 }
@@ -120,6 +134,9 @@ function computerSelectMove(){
     const [x,y] = findBestMove()
     gameStatus[x][y] = 'O';
     updategameStatus();
+    id = (x*3+y)
+    document.getElementById(id).style.pointerEvents = 'none';
+    document.getElementById('gameResult').innerHTML ='X\'s Turn';
     result = checkWinner();
     if(result == 0 && !isMovesLeft()){
         showResult("Tie");
