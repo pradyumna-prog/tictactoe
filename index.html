@@ -11,17 +11,15 @@
 
     <title>Tic Tac Toe</title>
 </head>
-<body onload="setupGame()">
+<body onload="showIntro()">
     <input type="checkbox" id="switch" onclick="switchTheme()"/>
     <label for="switch" id="labelSwitch">Toggle</label>
-
-    <h1 style = "font-family: 'Courier New', Courier, monospace; text-align: center;">Tic Tac Toe</h1>
-
     <div class="gameTypeSelect">
         <button class="playerSelect" onclick="againstComputer();">👨 v/s 💻</button>
         <button class="playerSelect" onclick="againstPlayer();">👨 v/s 👨</button>
     </div>
-
+    <div id="gameResult">
+    </div>
     <div id = "board" class = "board">
         <div id="0" class="cell" onclick="cellClickHandler(this.id)"></div>
         <div id="1" class="cell" onclick="cellClickHandler(this.id);" ></div>
@@ -33,8 +31,19 @@
         <div id="7" class="cell" onclick="cellClickHandler(this.id);"></div>
         <div id="8" class="cell" onclick="cellClickHandler(this.id);"></div>
     </div>
-    <div id="gameResult">
+    <div id="footerContainer">
+        <footer>
+            <span class="alignLeft">
+                <a href="https://www.linkedin.com/in/pradyumna-prog/" target="_BLANK">
+                    <img src="linkedin-dark.png" id="linkedin" alt="linkedin">
+                </a>
+            </span>
+            <span class="alignRight">
+                <a href="https://www.github.com/pradyumna-prog/" target="_BLANK">
+                    <img src="github-dark.png" id="github" alt="github">
+                </a>
+            </span>
+        </footer>
     </div>
-    
 </body>
 </html>

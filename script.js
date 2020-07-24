@@ -3,6 +3,14 @@ let turn;
 let dark;
 let result, player;
 
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+}
 function pauseClick(){
     let k = 0;
     for(let x=0; x<3; x++){
@@ -21,13 +29,26 @@ function resumeClick(){
     }
 }
 
+function showIntro(){
+    pauseClick();
+    let intro = [ ['T','I','C',],
+    ['T','A','C',],
+    ['T','O','E'] ];
+    let k = 0;
+    for(let x=0; x<3; x++){
+        for(let y=0; y<3; y++){
+            document.getElementById(k++).innerHTML = intro[x][y];
+        }
+    }
+    setTimeout( () => {setupGame()}, 2000);
+}
+
 function setupGame(){
     gameStatus = [ ['','','',],
         ['','','',],
         ['','',''] ];
     turn = false;
     dark = false;
-    pauseClick();
     updategameStatus();
     document.getElementById("gameResult").innerHTML = "";
     document.querySelector(".gameTypeSelect").style = "";
@@ -38,6 +59,8 @@ function switchTheme(){
     if(dark){
         //dark mode
         document.body.style = "background-color: #222831; color: white;";
+        document.getElementById("linkedin").setAttribute('src', 'linkedin-light.png');
+        document.getElementById("github").setAttribute('src', 'github-light.png'); 
         document.querySelectorAll('.cell').forEach(cell => cell.style = "box-shadow: 0 0 0 1px wheat; border: 1px solid wheat;");
         try{
             document.querySelectorAll('.playerSelect').forEach(btn => btn.style = "background-color: #222831; color:white;");   
@@ -47,6 +70,8 @@ function switchTheme(){
     else{
         //day mode
         document.body.style = "background-color: #f4f6ff";
+        document.getElementById("linkedin").setAttribute('src', 'linkedin-dark.png');
+        document.getElementById("github").setAttribute('src', 'github-dark.png'); 
         document.querySelectorAll('.cell').forEach(cell => cell.style = "box-shadow: 0 0 0 1px #333333; border: 1px solid #333333;");
         try{
             document.querySelectorAll('.playerSelect').forEach(btn => btn.style = "background-color: #f4f6ff; color:black");
