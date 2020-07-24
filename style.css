@@ -6,7 +6,7 @@ body{
     grid-template-columns: repeat(3, auto);
     width: 306px;
 	margin: 50px auto;
-	transition: transform 1.7s;
+	transition: transform 2.5s;
 	transform-style: preserve-3d;
 }
 

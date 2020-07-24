@@ -67,8 +67,7 @@ function showIntro(){
 }
 
 function flip(){
-    let el = document.getElementById("board");
-    el.style.transform = 'rotateY(180deg)';
+    document.getElementById("board").style.transform = 'rotateY(360deg)';
 }
 
 function setupGame(){
