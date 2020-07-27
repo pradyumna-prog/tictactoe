@@ -11,7 +11,7 @@ body{
 }
 
 .cell{
-    font-family: "Permanent Marker", cursive; !important 
+    font-family: "Permanent Marker", cursive; 
     width: 100px;
     height: 100px;
     box-shadow: 0 0 0 1px #333333;
