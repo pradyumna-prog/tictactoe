@@ -3,11 +3,18 @@ let turn;
 let dark;
 let result, player;
 
+if(new Date().getHours() > 6 && new Date().getHours() < 18){
+    dark = false;
+}
+else{
+    dark = true;
+}
+
 function switchTheme(){
-    dark = !dark
     if(dark){
         //dark mode
         document.body.style = "background-color: #222831; color: white;";
+        document.getElementById('labelSwitch').style.background = '#f9d71c';
         document.getElementById("linkedin").setAttribute('src', 'linkedin-light.png');
         document.getElementById("github").setAttribute('src', 'github-light.png'); 
         document.querySelectorAll('.cell').forEach(cell => cell.style = "box-shadow: 0 0 0 1px wheat; border: 1px solid wheat;");
@@ -19,6 +26,7 @@ function switchTheme(){
     else{
         //day mode
         document.body.style = "background-color: #f4f6ff";
+        document.getElementById('labelSwitch').style.background = '#222831';
         document.getElementById("linkedin").setAttribute('src', 'linkedin-dark.png');
         document.getElementById("github").setAttribute('src', 'github-dark.png'); 
         document.querySelectorAll('.cell').forEach(cell => cell.style = "box-shadow: 0 0 0 1px #333333; border: 1px solid #333333;");
@@ -27,6 +35,7 @@ function switchTheme(){
             document.querySelector('.btnRestart').style = "background-color: #e1ffc2; color: black;";    
         }catch(error){console.log(error)}
     }
+    dark = !dark
 }
 
 function pauseClick(){
