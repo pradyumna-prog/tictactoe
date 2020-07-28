@@ -30,12 +30,13 @@ body{
 	border-radius: 20px;
 }
 .btnRestart{
-    font-size: large;
-    height: 50px;
+    font-size: inherit;
     width: fit-content;
-    cursor: pointer;
+	cursor: pointer;
     background-color: #e1ffc2;
-    color: black;
+	color: black;
+	border: 1px solid black;
+	border-radius: 10px;
 }
 #gameResult{
     font-family: 'Courier New', Courier, monospace; 

@@ -15,8 +15,8 @@ function switchTheme(){
         //dark mode
         document.body.style = "background-color: #222831; color: white;";
         document.getElementById('labelSwitch').style.background = '#f9d71c';
-        document.getElementById("linkedin").setAttribute('src', 'linkedin-light.png');
-        document.getElementById("github").setAttribute('src', 'github-light.png'); 
+        document.getElementById("linkedin").setAttribute('src', './imgs/linkedin-light.png');
+        document.getElementById("github").setAttribute('src', './imgs/github-light.png'); 
         document.querySelectorAll('.cell').forEach(cell => cell.style = "box-shadow: 0 0 0 1px wheat; border: 1px solid wheat;");
         try{
             document.querySelectorAll('.playerSelect').forEach(btn => btn.style = "background-color: #222831; color:white;");   
@@ -27,8 +27,8 @@ function switchTheme(){
         //day mode
         document.body.style = "background-color: #f4f6ff";
         document.getElementById('labelSwitch').style.background = '#222831';
-        document.getElementById("linkedin").setAttribute('src', 'linkedin-dark.png');
-        document.getElementById("github").setAttribute('src', 'github-dark.png'); 
+        document.getElementById("linkedin").setAttribute('src', './imgs/linkedin-dark.png');
+        document.getElementById("github").setAttribute('src', './imgs/github-dark.png'); 
         document.querySelectorAll('.cell').forEach(cell => cell.style = "box-shadow: 0 0 0 1px #333333; border: 1px solid #333333;");
         try{
             document.querySelectorAll('.playerSelect').forEach(btn => btn.style = "background-color: #f4f6ff; color:black");
@@ -93,14 +93,14 @@ function setupGame(){
 
 function againstComputer(){
     flip();
-    document.querySelector(".gameTypeSelect").style = "visibility: hidden;";
+    document.querySelector(".gameTypeSelect").style = "display: none";
     player = "ai";
     startNewGame();
 }
 
 function againstPlayer(){
     flip();
-    document.querySelector(".gameTypeSelect").style = "visibility: hidden;";
+    document.querySelector(".gameTypeSelect").style = "display: none";
     player = "human";
     startNewGame();
 }
@@ -308,22 +308,21 @@ function checkWinner(){
 }
 
 function showResult(str){
-    document.getElementById('gameResult').innerHTML=""
+    document.getElementById('gameResult').innerHTML=(str == "Tie") ? "Game Tied 😕&nbsp;" : str+" Won 👏&nbsp;";
     
-    let msg = document.createElement("p");
-    msg.innerHTML = (str == "Tie") ? "Game Tied 😕" : str+" Won 👏";
-    document.getElementById('gameResult').appendChild(msg);   
-
     let btnRestart = document.createElement("button");
     btnRestart.innerHTML = "Restart";
     btnRestart.className = "btnRestart";
     btnRestart.addEventListener('click', setupGame);
     document.getElementById('gameResult').appendChild(btnRestart);   
     
-    if(dark)
+    if(!dark){
         document.querySelector('.btnRestart').style = "background-color: #393e46; color: white;";    
-    else
+    }
+    else{
         document.querySelector('.btnRestart').style = "background-color: #e1ffc2; color: black;";    
+    }
+        
     let k = 0;
     for(let x=0; x<3; x++){
         for(let y=0; y<3; y++){
