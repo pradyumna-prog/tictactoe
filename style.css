@@ -18,7 +18,7 @@ body{
 }
 
 .cell{
-    font-family: "Permanent Marker", cursive;
+    font-family: "Permanent Marker", cursive; 
     width: 100px;
     height: 100px;
     box-shadow: 0 0 0 1px #333333;
@@ -110,10 +110,4 @@ input:checked + label:after {
 
 label:active:after {
 	width: 20px;
-}
-
-@media all and (max-width: 480px) {
-	#game{
-		width: 100%;
-	}
 }
