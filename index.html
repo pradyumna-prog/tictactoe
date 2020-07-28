@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Classic Tic Tac Toe game with an unbeatable AI for you when you are bored.">
     
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="shortcut icon" href="./tictactoe.ico">
 
     <script src="script.js"></script>
-
     <title>Tic Tac Toe</title>
 </head>
 <body onload = "showIntro()">
+    <div id="game">
     <input type="checkbox" id="switch" onclick="switchTheme()"/>
     <label for="switch" id="labelSwitch">Toggle</label>
     <div class="gameTypeSelect">
@@ -44,6 +45,7 @@
                 </a>
             </span>
         </footer>
+    </div>
     </div>
     <script> switchTheme() </script>
 </body>

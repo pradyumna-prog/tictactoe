@@ -1,10 +1,17 @@
 body{
     background-color: #f4f6ff;
 }
+
+#game{
+	width: 70%;
+	max-width: 768px;
+	margin: 30px auto;
+}
+
 .board{
     display: grid;
     grid-template-columns: repeat(3, auto);
-    width: 306px;
+    max-width: 306px;
 	margin: 50px auto;
 	transition: transform 2.5s;
 	transform-style: preserve-3d;
@@ -15,11 +22,12 @@ body{
     width: 100px;
     height: 100px;
     box-shadow: 0 0 0 1px #333333;
-    border: 1px solid #333333;
+	border: 1px solid #333333;
     cursor: pointer;
     line-height: 100px;
     font-size: 60px;
-    text-align: center;
+	text-align: center;
+	border-radius: 20px;
 }
 .btnRestart{
     font-size: large;
@@ -49,7 +57,7 @@ body{
 	box-shadow: 0 0 0 1px #333333;
 }
 #footerContainer {
-	position: absolute;
+	position: relative;
   	bottom: auto;
 	left: 0px;
   	height: 40px;
@@ -102,4 +110,10 @@ input:checked + label:after {
 
 label:active:after {
 	width: 20px;
+}
+
+@media all and (max-width: 480px) {
+	#game{
+		width: 100%;
+	}
 }
