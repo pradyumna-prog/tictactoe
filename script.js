@@ -52,7 +52,8 @@ function resumeClick(){
     for(let x=0; x<3; x++){
         for(let y=0; y<3; y++){
             if(gameStatus[x][y] != 'X' && gameStatus[x][y] != 'O')
-                document.getElementById(k++).style.pointerEvents = 'auto';
+                document.getElementById(k).style.pointerEvents = 'auto';
+            k++;
         }
     }
 }
