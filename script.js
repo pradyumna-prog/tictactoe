@@ -126,9 +126,9 @@ function cellClickHandler(id){
     }
     if(player=="ai"){
         document.getElementById('gameResult').innerHTML ='O\'s Turn';
-        pauseClick();
+        setTimeout(function() {pauseClick()}, 10, 10);
         setTimeout( () => {computerSelectMove();}, 500);
-        resumeClick();
+        setTimeout(function() {resumeClick()}, 500, 10);
     }
 }
 
